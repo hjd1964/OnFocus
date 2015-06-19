@@ -1,5 +1,5 @@
 /*
- * Title       On-Focus
+ * Title       OnFocus
  * by          Howard Dutton
  *
  * Copyright (C) 2015 Howard Dutton
@@ -28,43 +28,43 @@
 #define FirmwareNumber "1.0a1"
 #define FirmwareName   "On-Focus"
 
- // --------------------------------------------------------------------------------------------
- // Settings
- #define CHKSUM0_OFF            // checksum, normally not used
+// --------------------------------------------------------------------------------------------
+// Settings
+#define CHKSUM0_OFF            // checksum, normally not used
  
- #define MICROS_PER_STEP 2.756  // microns (1/1000 of a mm) of focus travel per step
-                                // my Meade 8" SCT has about 32tpi on the focuser knob
-                                // so... 1/32" per rotation (0.793mm)
-                                // 20:1 reduced 24 stepper motor has 480 steps per rotation
-                                // 20 tooth motor pulley and 60 tooth focuser pully for a 3:1 reduction
-                                // 480*3 = 1440 steps per focuser rotation
-                                // 0.793mm/1440 = 0.551 microns
-                                // now the SCT has a f2 primary and a final focal ratio of f10 so
-                                // I expect that the actual focal plane moves by approximately 5x
-                                // the amount that the primary mirror moves... 0.551 * 5 = 2.756 microns
-                                // or about 4mm per focuser knob turn, which is about 5/32" (0.156".)
-                                // This also works out to about 0.1 thousandths of an inch per step.
+#define MICROS_PER_STEP 2.756  // microns (1/1000 of a mm) of focus travel per step
+                               // my Meade 8" SCT has about 32tpi on the focuser knob
+                               // so... 1/32" per rotation (0.793mm)
+                               // 20:1 reduced 24 stepper motor has 480 steps per rotation
+                               // 20 tooth motor pulley and 60 tooth focuser pully for a 3:1 reduction
+                               // 480*3 = 1440 steps per focuser rotation
+                               // 0.793mm/1440 = 0.551 microns
+                               // now the SCT has a f2 primary and a final focal ratio of f10 so
+                               // I expect that the actual focal plane moves by approximately 5x
+                               // the amount that the primary mirror moves... 0.551 * 5 = 2.756 microns
+                               // or about 4mm per focuser knob turn, which is about 5/32" (0.156".)
+                               // This also works out to about 0.1 thousandths of an inch per step.
  
- #define MaxRate 2              // milliseconds per step (default 10, 0.01 seconds)
-                                // how fast the focus moves... 1440*0.002=2.9 seconds per turn
-                                // this is about 18 seconds for one inch of travel
-                                // movement starts and stops at 8x slower than this
- // --------------------------------------------------------------------------------------------
+#define MaxRate 2              // milliseconds per step (default 10, 0.01 seconds)
+                               // how fast the focus moves... 1440*0.002=2.9 seconds per turn
+                               // this is about 18 seconds for one inch of travel
+                               // movement starts and stops at 8x slower than this
+// --------------------------------------------------------------------------------------------
 
- // OnFocus controls a stepper step/dir type stepper driver attached to the pins defined below
- // the module's enable pin should also be wired in to allow the motor to be powered down
- // when not moving.  For this to work properly you must not micro-step the motor (use 1X mode.)
- // I used a Big Easy Driver (A4988,) but a DRV8825, etc. would also work...
- #define foc_sens 2             // detects the focuser zero index (not implemented)
- #define foc_step 3             // connected to stepper driver step pin (required)
- #define foc_dir  4             // connected to stepper driver dir pin  (required)
- #define foc_en   7             // connected to stepper driver enable pin (optional and recommended)
- #define foc_m1   8             // connected to stepper driver M1 pin (not implemented)
- #define foc_m2   9             // connected to stepper driver M2 pin (not implemented)
- #define foc_m3   10            // connected to stepper driver M3 pin (not implemented)
- #define foc_rst  11            // connected to stepper driver reset pin (not implemented)
- #define foc_sl   12            // connected to stepper driver sleep pin (not implemented)
- #define foc_vcc  13            // connected to stepper driver vcc pin (not implemented)
+// for stepper motor control via step/dir type stepper driver attached to the pins defined below
+// the module's enable pin should also be wired in to allow the motor to be powered down
+// when not moving.  For this to work properly you must not micro-step the motor (use 1X mode.)
+// I used a Big Easy Driver (A4988,) but a DRV8825, etc. would also work...
+#define foc_sens 2             // detects the focuser zero index (not implemented)
+#define foc_step 3             // connected to stepper driver step pin (required)
+#define foc_dir  4             // connected to stepper driver dir pin  (required)
+#define foc_en   7             // connected to stepper driver enable pin (optional and recommended)
+#define foc_m1   8             // connected to stepper driver M1 pin (not implemented)
+#define foc_m2   9             // connected to stepper driver M2 pin (not implemented)
+#define foc_m3   10            // connected to stepper driver M3 pin (not implemented)
+#define foc_rst  11            // connected to stepper driver reset pin (not implemented)
+#define foc_sl   12            // connected to stepper driver sleep pin (not implemented)
+#define foc_vcc  13            // connected to stepper driver vcc pin (not implemented)
 
 // I recommand using a DRV8825 to run the stepper, refer to the Pololu site for full wiring information
 // https://www.pololu.com/product/2133
