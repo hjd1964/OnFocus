@@ -97,6 +97,17 @@ void processCommands() {
         if (command[1]=='Z') {
           targetPos=0;
           currentPos=0;
+          EEPROM_writeLong(base+EE_target,targetPos);
+          EEPROM_writeLong(base+EE_target,currentPos);
+          quietReply=true;
+        } else
+//  :SH#  Set Half travel position (current position)
+//         Returns: no reply
+        if (command[1]=='H') {
+          targetPos=maxPos/2;
+          currentPos=maxPos/2;
+          EEPROM_writeLong(base+EE_target,targetPos);
+          EEPROM_writeLong(base+EE_target,currentPos);
           quietReply=true;
         } else
 //  :SMn#  Set max position
