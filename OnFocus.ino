@@ -66,8 +66,9 @@
 #define foc_sl   12            // connected to stepper driver sleep pin (not implemented)
 #define foc_vcc  13            // connected to stepper driver vcc pin (not implemented)
 
-// I recommand using a DRV8825 to run the stepper, refer to the Pololu site for full wiring information
+// Refer to the Pololu site and/or the SparkFun website for full wiring information
 // https://www.pololu.com/product/2133
+// https://www.sparkfun.com/products/12859
 
 #include <EEPROM.h>
 
