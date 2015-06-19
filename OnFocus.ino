@@ -45,7 +45,7 @@
                                // or about 4mm per focuser knob turn, which is about 5/32" (0.156".)
                                // This also works out to about 0.1 thousandths of an inch per step.
  
-#define MaxRate 2              // milliseconds per step (default 10, 0.01 seconds)
+#define MaxRate 10             // milliseconds per step (default 10, 0.01 seconds)
                                // how fast the focus moves... 1440*0.002=2.9 seconds per turn
                                // this is about 18 seconds for one inch of travel
                                // movement starts and stops at 8x slower than this
