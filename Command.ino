@@ -41,7 +41,7 @@ void processCommands() {
 //  :MIn#  Move In by n steps
 //         Returns: no reply
         if (command[1]=='I') {
-          if (!atol2((char*)&parameter[0],&i)) {
+          if (atol2((char*)&parameter[0],&i)) {
             targetPos-=i;
             if (targetPos<0) targetPos=0;
             quietReply=true;
@@ -116,13 +116,13 @@ void processCommands() {
 //  :GM#  Get max position
 //         Returns: n#
         if (command[1]=='M') {
-          sprintf(reply,"%d.",maxPos);
+          sprintf(reply,"%d",maxPos);
           quietReply=true;
         } else
 //  :GP#  Get position
 //         Returns: n#
         if (command[1]=='P') {
-          sprintf(reply,"%d.",currentPos);
+          sprintf(reply,"%d",currentPos);
           quietReply=true;
         } else
 //  :GS#  Get scale
