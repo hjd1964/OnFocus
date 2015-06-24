@@ -124,16 +124,22 @@ void processCommands() {
       
 //   G - Get Commands
       if (command[0]=='G') {
+//  :GI#  Get full in position
+//         Returns: 0#
+        if (command[1]=='I') {
+          sprintf(reply,"%ld",0);
+          quietReply=true;
+        } else
 //  :GM#  Get max position
 //         Returns: n#
         if (command[1]=='M') {
-          sprintf(reply,"%d",maxPos);
+          sprintf(reply,"%ld",maxPos);
           quietReply=true;
         } else
 //  :GP#  Get position
 //         Returns: n#
         if (command[1]=='P') {
-          sprintf(reply,"%d",currentPos);
+          sprintf(reply,"%ld",currentPos);
           quietReply=true;
         } else
 //  :GS#  Get scale
