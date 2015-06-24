@@ -23,9 +23,10 @@
  *
  * Date                Version           Comment
  * 06-17-2015          1.0a1             First release
+ * 06-17-2015          1.0a2             Added ability to set logic LOW or HIGH for enabling/disabling the stepper driver, pulls microstep mode control lines M1,M2,M3 LOW for full-step mode
 */
 
-#define FirmwareNumber "1.0a1"
+#define FirmwareNumber "1.0a2"
 #define FirmwareName   "On-Focus"
 
 // --------------------------------------------------------------------------------------------
@@ -59,12 +60,15 @@
 #define foc_step 3             // connected to stepper driver step pin (required)
 #define foc_dir  4             // connected to stepper driver dir pin  (required)
 #define foc_en   7             // connected to stepper driver enable pin (optional and recommended)
-#define foc_m1   8             // connected to stepper driver M1 pin (not implemented)
-#define foc_m2   9             // connected to stepper driver M2 pin (not implemented)
-#define foc_m3   10            // connected to stepper driver M3 pin (not implemented)
+#define foc_m1   8             // connected to stepper driver M1 pin (pulled LOW)
+#define foc_m2   9             // connected to stepper driver M2 pin (pulled LOW)
+#define foc_m3   10            // connected to stepper driver M3 pin (pulled LOW)
 #define foc_rst  11            // connected to stepper driver reset pin (not implemented)
 #define foc_sl   12            // connected to stepper driver sleep pin (not implemented)
 #define foc_vcc  13            // connected to stepper driver vcc pin (not implemented)
+
+#define en_enabled LOW
+#define en_disabled HIGH
 
 // Refer to the Pololu site and/or the SparkFun website for full wiring information
 // https://www.pololu.com/product/2133
@@ -103,11 +107,15 @@ void setup()
   // configure the Arduino ports
   pinMode(foc_sens,INPUT);
   pinMode(foc_en,OUTPUT);
-  digitalWrite(foc_en,HIGH); driver_off=true; // disable driver output
+  digitalWrite(foc_en,en_disabled); driver_off=true; // disable driver output
   pinMode(foc_dir,OUTPUT);
   digitalWrite(foc_dir,LOW); focuser_dir_out=false;
   pinMode(foc_step,OUTPUT);
   digitalWrite(foc_step,LOW);
+
+  pinMode(foc_m1,OUTPUT); digitalWrite(foc_m1,LOW);
+  pinMode(foc_m2,OUTPUT); digitalWrite(foc_m2,LOW);
+  pinMode(foc_m3,OUTPUT); digitalWrite(foc_m3,LOW);
   
   // read the settings
   long key=EEPROM_readLong(EE_key);
@@ -170,7 +178,7 @@ void loop()
       if (currentPos>targetPos) {
         if (!focuser_dir_out || driver_off) {
           digitalWrite(foc_dir,HIGH); focuser_dir_out=true; delay(1);
-          digitalWrite(foc_en,LOW); driver_off=false; // enable driver output
+          digitalWrite(foc_en,en_enabled); driver_off=false; // enable driver output
         } else {
           currentPos--;
           digitalWrite(foc_step,HIGH);
@@ -181,7 +189,7 @@ void loop()
       if (currentPos<targetPos) {
         if (focuser_dir_out || driver_off) {
           digitalWrite(foc_dir,LOW); focuser_dir_out=false; delay(1);
-          digitalWrite(foc_en,LOW); driver_off=false; // enable driver output
+          digitalWrite(foc_en,en_enabled); driver_off=false; // enable driver output
         } else {
           currentPos++;
           digitalWrite(foc_step,HIGH);
@@ -201,7 +209,7 @@ void loop()
         EEPROM_writeLong(base+EE_target,targetPos);
         EEPROM_writeLong(base+EE_current,currentPos);
         EEPROM.write(base+EE_moving,(byte)moving); 
-        digitalWrite(foc_en,HIGH); driver_off=true; // disable driver output
+        digitalWrite(foc_en,en_disabled); driver_off=true; // disable driver output
       }
 
       // slow movement
