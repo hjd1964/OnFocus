@@ -23,7 +23,7 @@
  *
  * Date                Version           Comment
  * 06-17-2015          1.0a1             First release
- * 06-17-2015          1.0a2             Added ability to set logic LOW or HIGH for enabling/disabling the stepper driver, pulls microstep mode control lines M1,M2,M3 LOW for full-step mode
+ * 06-24-2015          1.0a2             Added ability to set logic LOW or HIGH for enabling/disabling the stepper driver, pulls microstep mode control lines M1,M2,M3 LOW for full-step mode
 */
 
 #define FirmwareNumber "1.0a2"
